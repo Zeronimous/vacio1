@@ -1,21 +1,26 @@
 ID,prevmarker,texto,postmarker
-sample.txt-1_1,,This is a simple sentence.,
-sample.txt-2_1,<T>,Time,</T>
-sample.txt-2_2, ,for a, <G>
-sample.txt-2_3,,test,</G>
-sample.txt-2_4,,.,
-sample.txt-3_1,,This text has, <T><i>
-sample.txt-3_2,,nested,</i></T>
-sample.txt-3_3, ,markers.,
-sample.txt-4_1,,Please upgrade to, {p1}
-sample.txt-4_2, ,to continue.,
-sample.txt-6_1,,First phrase.,
-sample.txt-7_1,,Second phrase.,
-sample.txt-8_1,<B>,Start,</B>
-sample.txt-8_2,   ,and,   <Y>
-sample.txt-8_3,,End,</Y>
-sample.txt-8_4,,.,
-sample.txt-9_1,,"Let's test quotes "" and backslashes \.",
-sample.txt-10_1,</T> ,more call(s) today.,</T>
-sample.txt-10_2, ,more call(s) today.,{x1}
-sample.txt-11_1,,13:00–18:00,
+sample.txt-1_1,,This is a simple sentence._es,
+sample.txt-2_1,<T>,Time_es,
+sample.txt-2_2,</T>, for a_es ,
+sample.txt-2_3,<G>,test_es,
+sample.txt-2_4,</G>,.,
+sample.txt-3_1,,This text has_es ,
+sample.txt-3_2,<T><i>,nested_es,
+sample.txt-3_3,</i></T>, markers._es,
+sample.txt-4_1,,Please upgrade to_es ,
+sample.txt-4_2,{p1}, to continue._es,
+sample.txt-6_1,,First phrase._es,
+sample.txt-7_1,,Second phrase._es,
+sample.txt-8_1,<B>,Start_es,
+sample.txt-8_2,</B>,   and_es   ,
+sample.txt-8_3,<Y>,End_es,
+sample.txt-8_4,</Y>,.,
+sample.txt-9_1,,"Let's test quotes "" and backslashes \._es",
+sample.txt-10_1,</T>, more call(s) today._es,
+sample.txt-10_2,</T>, more call(s) today._es,
+sample.txt-10_3,{x1},,
+sample.txt-11_1,,13:00–18:00_es,
+sample.txt-12_1,,"Hmm, you're in luck._es ",
+sample.txt-12_2,{x1}, ,
+sample.txt-12_3,<T>,won_es,
+sample.txt-12_4,</T>, this fight._es,

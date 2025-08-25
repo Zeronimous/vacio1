@@ -7,4 +7,5 @@
 {"RandomText": "Whitespace test.", "DialogueText":"...","English":"<B>Start</B>   and   <Y>End</Y>.",""},
 {"RandomText": "Special chars.", "DialogueText":"...","English":"Let's test quotes \" and backslashes \\.",""},
 {"RandomText": "Leading space bug.", "DialogueText":"...","English":"</T> more call(s) today.</T> more call(s) today.{x1}",""},
-{"RandomText": "Encoding test.", "DialogueText":"...","English":"13:00–18:00",""}
+{"RandomText": "Encoding test.", "DialogueText":"...","English":"13:00–18:00",""},
+{"RandomText": "Marker drop bug.", "DialogueText":"...","English":"Hmm, you're in luck. {x1} <T>won</T> this fight.",""}

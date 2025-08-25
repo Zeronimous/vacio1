@@ -41,68 +41,45 @@ def unescape_string(s):
 def parse_content(content_string, base_id):
     """
     Analiza una cadena de contenido, la divide en texto y marcadores,
-    y genera las filas correspondientes para el CSV.
+    y genera las filas correspondientes para el CSV. (Versión 5 - Lógica final)
     """
     if re.fullmatch(GENERIC_MARKER_REGEX, content_string):
         return []
 
+    # La tokenización es la parte más robusta. El resultado es una lista de
+    # textos y marcadores alternados.
     tokens = [token for token in MARKER_REGEX.split(content_string) if token]
 
     rows = []
     sub_index = 1
 
+    # Bucle simple: agrupar marcadores y el texto que les sigue.
     i = 0
     while i < len(tokens):
-        prev_markers_list = []
+        # Acumular todos los marcadores iniciales.
+        prev_markers = []
         while i < len(tokens) and MARKER_REGEX.fullmatch(tokens[i]):
-            prev_markers_list.append(tokens[i])
+            prev_markers.append(tokens[i])
             i += 1
 
-        if i >= len(tokens):
-            if prev_markers_list: # Handle trailing markers with no text
-                 rows.append({
-                    "id": f"{base_id}_{sub_index}",
-                    "prevmarker": "".join(prev_markers_list),
-                    "texto": "",
-                    "postmarker": ""
-                })
-            break
-
-        text_chunk = tokens[i]
-        i += 1
-
-        post_markers_list = []
-        while i < len(tokens) and MARKER_REGEX.fullmatch(tokens[i]):
-            post_markers_list.append(tokens[i])
+        # El siguiente token es el texto (puede estar vacío).
+        text = ""
+        if i < len(tokens):
+            text = tokens[i]
             i += 1
 
-        texto = text_chunk.strip()
-
-        # Si el fragmento es solo espacio, no genera una nueva fila,
-        # sino que se adjunta al marcador anterior o posterior.
-        if not texto:
-            # Si hay una fila anterior, adjuntar el espacio a su postmarker.
-            if rows:
-                rows[-1]["postmarker"] += text_chunk
-            # Si no hay fila anterior, adjuntar el espacio al prevmarker de la siguiente fila potencial.
-            # Esta es la parte compleja. La nueva lógica lo simplifica.
-            # Con la nueva lógica, este caso se maneja en la asignación de ws.
+        # Si no hay texto y no hay marcadores, hemos terminado.
+        if not prev_markers and not text:
             continue
 
-        leading_ws = text_chunk[:len(text_chunk) - len(text_chunk.lstrip())]
-        trailing_ws = text_chunk[len(text_chunk.rstrip()):]
-
-        # LÓGICA DE ESPACIOS CORREGIDA Y SIMPLIFICADA
-        prevmarker = "".join(prev_markers_list) + leading_ws
-        postmarker = trailing_ws + "".join(post_markers_list)
-
+        # Crear una fila. El texto no se limpia (strip), se mantiene tal cual.
+        # Los postmarkers no se calculan aquí, se convierten en los prevmarkers de la siguiente fila.
         row = {
             "ID": f"{base_id}_{sub_index}",
-            "prevmarker": prevmarker,
-            "texto": texto,
-            "postmarker": postmarker
+            "prevmarker": "".join(prev_markers),
+            "texto": text,
+            "postmarker": "" # El postmarker siempre estará vacío.
         }
-
         rows.append(row)
         sub_index += 1
 

@@ -51,7 +51,8 @@ def load_translations():
         for entry_index, rows in entries.items():
             # Ordenar las sub-partes por su sub-índice
             sorted_rows = sorted(rows, key=lambda r: int(r['ID'].rsplit('_', 1)[1]))
-            full_text = "".join(row['prevmarker'] + row['texto'] + row['postmarker'] for row in sorted_rows)
+            # La nueva lógica es una simple concatenación, ya que el extractor ahora es 100% fiel.
+            full_text = "".join(row['prevmarker'] + row['texto'] for row in sorted_rows)
             reconstructed_texts[filename][entry_index] = full_text
 
     return reconstructed_texts
