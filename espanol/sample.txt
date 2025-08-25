@@ -1,0 +1,8 @@
+{"RandomText": "This is some text that should be ignored.", "DialogueText":"...","English":"This is a simple sentence._es",""},
+{"RandomText": "More ignored text.", "DialogueText":"...","English":"<T>Time_es</T> for a_es <G>test_es</G>.",""},
+{"RandomText": "Another line.", "DialogueText":"...","English":"This text has_es <T><i>nested_es</i></T> markers_es.",""},
+{"RandomText": "Placeholders.", "DialogueText":"...","English":"Please upgrade to_es {p1} to continue_es.",""},
+{"RandomText": "Exclusion.", "DialogueText":"...","English":"{sigh1}",""},
+{"RandomText": "Two phrases.", "DialogueText":"...","English":"First phrase._es",""}, {"MoreText": "blabla", "DialogueText":"...","English":"Second phrase._es",""},
+{"RandomText": "Whitespace test.", "DialogueText":"...","English":"<B>Start_es</B>   and_es   <Y>End_es</Y>.",""},
+{"RandomText": "Special chars.", "DialogueText":"...","English":"Let's test quotes \" and backslashes \\._es",""}

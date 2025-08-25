@@ -1,0 +1,8 @@
+{"RandomText": "This is some text that should be ignored.", "DialogueText":"...","English":"This is a simple sentence.",""},
+{"RandomText": "More ignored text.", "DialogueText":"...","English":"<T>Time</T> for a <G>test</G>.",""},
+{"RandomText": "Another line.", "DialogueText":"...","English":"This text has <T><i>nested</i></T> markers.",""},
+{"RandomText": "Placeholders.", "DialogueText":"...","English":"Please upgrade to {p1} to continue.",""},
+{"RandomText": "Exclusion.", "DialogueText":"...","English":"{sigh1}",""},
+{"RandomText": "Two phrases.", "DialogueText":"...","English":"First phrase.",""}, {"MoreText": "blabla", "DialogueText":"...","English":"Second phrase.",""},
+{"RandomText": "Whitespace test.", "DialogueText":"...","English":"<B>Start</B>   and   <Y>End</Y>.",""},
+{"RandomText": "Special chars.", "DialogueText":"...","English":"Let's test quotes \" and backslashes \\.",""}
