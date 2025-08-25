@@ -103,7 +103,7 @@ def main():
                 modified_content = modified_content[:start] + new_text_escaped + modified_content[end:]
 
         print(f"Reemplazando texto en '{filename}'...")
-        with open(target_filepath, 'w', encoding='utf-8') as f:
+        with open(target_filepath, 'w', encoding='utf-8-sig') as f:
             f.write(modified_content)
 
     print(f"¡Éxito! Los archivos traducidos se han guardado en la carpeta '{DIR_ESPANOL}'.")

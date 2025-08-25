@@ -6,4 +6,5 @@
 {"RandomText": "Two phrases.", "DialogueText":"...","English":"First phrase.",""}, {"MoreText": "blabla", "DialogueText":"...","English":"Second phrase.",""},
 {"RandomText": "Whitespace test.", "DialogueText":"...","English":"<B>Start</B>   and   <Y>End</Y>.",""},
 {"RandomText": "Special chars.", "DialogueText":"...","English":"Let's test quotes \" and backslashes \\.",""},
-{"RandomText": "Leading space bug.", "DialogueText":"...","English":"</T> more call(s) today.</T> more call(s) today.{x1}",""}
+{"RandomText": "Leading space bug.", "DialogueText":"...","English":"</T> more call(s) today.</T> more call(s) today.{x1}",""},
+{"RandomText": "Encoding test.", "DialogueText":"...","English":"13:00–18:00",""}
