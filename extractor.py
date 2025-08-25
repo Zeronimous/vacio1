@@ -32,7 +32,11 @@ def setup_directories():
     os.makedirs(DIR_ESPANOL, exist_ok=True)
 
 def unescape_string(s):
-    return codecs.decode(s, 'unicode_escape')
+    """
+    Desescapa de forma segura solo los caracteres que conocemos (\\" y \\\\),
+    para evitar corromper otros caracteres especiales.
+    """
+    return s.replace('\\"', '"').replace('\\\\', '\\')
 
 def parse_content(content_string, base_id):
     """
