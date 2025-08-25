@@ -1,18 +1,20 @@
 ID,prevmarker,texto,postmarker
 sample.txt-1_1,,This is a simple sentence._es,
 sample.txt-2_1,<T>,Time_es,</T>
-sample.txt-2_2,,for a_es, <G>
+sample.txt-2_2, ,for a_es, <G>
 sample.txt-2_3,,test_es,</G>
 sample.txt-2_4,,.,
 sample.txt-3_1,,This text has_es, <T><i>
 sample.txt-3_2,,nested_es,</i></T>
-sample.txt-3_3,,markers_es.,
+sample.txt-3_3, ,markers_es.,
 sample.txt-4_1,,Please upgrade to_es, {p1}
-sample.txt-4_2,,to continue_es.,
+sample.txt-4_2, ,to continue_es.,
 sample.txt-6_1,,First phrase._es,
 sample.txt-7_1,,Second phrase._es,
 sample.txt-8_1,<B>,Start_es,</B>
-sample.txt-8_2,,and_es,   <Y>
+sample.txt-8_2,   ,and_es,   <Y>
 sample.txt-8_3,,End_es,</Y>
 sample.txt-8_4,,.,
 sample.txt-9_1,,"Let's test quotes "" and backslashes \._es",
+sample.txt-10_1,</T> ,more call(s) today._es,</T>
+sample.txt-10_2, ,more call(s) today._es,{x1}

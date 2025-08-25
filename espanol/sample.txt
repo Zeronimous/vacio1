@@ -5,4 +5,5 @@
 {"RandomText": "Exclusion.", "DialogueText":"...","English":"{sigh1}",""},
 {"RandomText": "Two phrases.", "DialogueText":"...","English":"First phrase._es",""}, {"MoreText": "blabla", "DialogueText":"...","English":"Second phrase._es",""},
 {"RandomText": "Whitespace test.", "DialogueText":"...","English":"<B>Start_es</B>   and_es   <Y>End_es</Y>.",""},
-{"RandomText": "Special chars.", "DialogueText":"...","English":"Let's test quotes \" and backslashes \\._es",""}
+{"RandomText": "Special chars.", "DialogueText":"...","English":"Let's test quotes \" and backslashes \\._es",""},
+{"RandomText": "Leading space bug.", "DialogueText":"...","English":"</T> more call(s) today._es</T> more call(s) today._es{x1}",""}
