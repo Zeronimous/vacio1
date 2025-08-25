@@ -152,7 +152,7 @@ def main():
         return
 
     try:
-        with open(CSV_FILENAME, 'w', newline='', encoding='utf-8-sig') as csvfile:
+        with open(CSV_FILENAME, 'w', newline='', encoding='utf-8') as csvfile:
             fieldnames = ['ID', 'prevmarker', 'texto', 'postmarker']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()

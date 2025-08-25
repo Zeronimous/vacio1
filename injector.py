@@ -29,7 +29,7 @@ def load_translations():
     """Carga las traducciones del CSV y las agrupa por archivo y entrada."""
     translations = defaultdict(lambda: defaultdict(list))
     try:
-        with open(CSV_FILENAME, 'r', newline='', encoding='utf-8-sig') as csvfile:
+        with open(CSV_FILENAME, 'r', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 # El ID es como 'sample.txt-1_1'
@@ -103,7 +103,7 @@ def main():
                 modified_content = modified_content[:start] + new_text_escaped + modified_content[end:]
 
         print(f"Reemplazando texto en '{filename}'...")
-        with open(target_filepath, 'w', encoding='utf-8-sig') as f:
+        with open(target_filepath, 'w', encoding='utf-8') as f:
             f.write(modified_content)
 
     print(f"¡Éxito! Los archivos traducidos se han guardado en la carpeta '{DIR_ESPANOL}'.")
