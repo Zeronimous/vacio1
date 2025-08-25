@@ -29,7 +29,7 @@ def load_translations():
     """Carga las traducciones del CSV y las agrupa por archivo y entrada."""
     translations = defaultdict(lambda: defaultdict(list))
     try:
-        with open(CSV_FILENAME, 'r', newline='', encoding='utf-8') as csvfile:
+        with open(CSV_FILENAME, 'r', newline='', encoding='utf-8-sig') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 # El ID es como 'sample.txt-1_1'
