@@ -22,7 +22,7 @@ GENERIC_MARKER_REGEX = r"{[^}]+}"
 MARKER_REGEX_PATTERN = "(" + "|".join(ESCAPED_MARKERS) + "|" + GENERIC_MARKER_REGEX + ")"
 MARKER_REGEX = re.compile(MARKER_REGEX_PATTERN)
 
-ENGLISH_ENTRY_REGEX = re.compile(r',\"English\":\"((?:\\"|[^"])*)\",\"')
+ENGLISH_ENTRY_REGEX = re.compile(r',?\"English\":\"((?:\\.|[^"\\])*)\",\"')
 
 # --- Lógica Principal ---
 
@@ -46,39 +46,31 @@ def parse_content(content_string, base_id):
     if re.fullmatch(GENERIC_MARKER_REGEX, content_string):
         return []
 
-    # La tokenización es la parte más robusta. El resultado es una lista de
-    # textos y marcadores alternados.
     tokens = [token for token in MARKER_REGEX.split(content_string) if token]
 
     rows = []
     sub_index = 1
 
-    # Bucle simple: agrupar marcadores y el texto que les sigue.
     i = 0
     while i < len(tokens):
-        # Acumular todos los marcadores iniciales.
         prev_markers = []
         while i < len(tokens) and MARKER_REGEX.fullmatch(tokens[i]):
             prev_markers.append(tokens[i])
             i += 1
 
-        # El siguiente token es el texto (puede estar vacío).
         text = ""
         if i < len(tokens):
             text = tokens[i]
             i += 1
 
-        # Si no hay texto y no hay marcadores, hemos terminado.
         if not prev_markers and not text:
             continue
 
-        # Crear una fila. El texto no se limpia (strip), se mantiene tal cual.
-        # Los postmarkers no se calculan aquí, se convierten en los prevmarkers de la siguiente fila.
         row = {
             "ID": f"{base_id}_{sub_index}",
             "prevmarker": "".join(prev_markers),
             "texto": text,
-            "postmarker": "" # El postmarker siempre estará vacío.
+            "postmarker": ""
         }
         rows.append(row)
         sub_index += 1
@@ -109,9 +101,6 @@ def main():
 
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
-
-        # Eliminar el carácter BOM si aparece al inicio del contenido.
-        content = content.lstrip('\ufeff')
 
         matches = ENGLISH_ENTRY_REGEX.finditer(content)
 

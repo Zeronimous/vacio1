@@ -12,7 +12,6 @@ DIR_ESPANOL = "espanol"
 CSV_FILENAME = os.path.join(DIR_TEXTOS, "textos_a_traducir.csv")
 
 # Regex para encontrar las frases en inglés a extraer.
-# Debe ser idéntico al del extractor.
 ENGLISH_ENTRY_REGEX = re.compile(r',\"English\":\"((?:\\"|[^"])*)\",\"')
 
 # --- Lógica Principal ---
@@ -32,7 +31,6 @@ def load_translations():
         with open(CSV_FILENAME, 'r', newline='', encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                # El ID es como 'sample.txt-1_1'
                 try:
                     base_id, sub_id = row['ID'].rsplit('_', 1)
                     filename, entry_index = base_id.rsplit('-', 1)
@@ -45,13 +43,10 @@ def load_translations():
         print(f"Error: No se encontró el archivo de traducciones '{CSV_FILENAME}'")
         return None
 
-    # Reconstruir las cadenas completas
     reconstructed_texts = defaultdict(dict)
     for filename, entries in translations.items():
         for entry_index, rows in entries.items():
-            # Ordenar las sub-partes por su sub-índice
             sorted_rows = sorted(rows, key=lambda r: int(r['ID'].rsplit('_', 1)[1]))
-            # La nueva lógica es una simple concatenación, ya que el extractor ahora es 100% fiel.
             full_text = "".join(row['prevmarker'] + row['texto'] for row in sorted_rows)
             reconstructed_texts[filename][entry_index] = full_text
 
@@ -61,7 +56,7 @@ def main():
     """
     Función principal del script.
     """
-    print("Iniciando el script de reinyección (versión corregida)...")
+    print("Iniciando el script de reinyección (versión final)...")
     setup_directories()
 
     translations = load_translations()
@@ -81,26 +76,21 @@ def main():
             print(f"Advertencia: No se encontró el archivo original '{source_filepath}'. Saltando.")
             continue
 
-        # Encontrar todas las coincidencias para obtener sus posiciones
         matches = list(ENGLISH_ENTRY_REGEX.finditer(original_content))
 
         modified_content = original_content
 
-        # Iterar en orden inverso para no afectar los índices de los siguientes reemplazos
         for i in reversed(range(len(matches))):
             match = matches[i]
             entry_index = str(i + 1)
 
             if entry_index in translated_entries:
-                # El texto traducido y escapado
                 translated_text = translated_entries[entry_index]
                 new_text_escaped = escape_string(translated_text)
 
-                # Las posiciones del texto a reemplazar (solo el contenido, no las comillas)
                 start = match.start(1)
                 end = match.end(1)
 
-                # Reconstruir la cadena
                 modified_content = modified_content[:start] + new_text_escaped + modified_content[end:]
 
         print(f"Reemplazando texto en '{filename}'...")
