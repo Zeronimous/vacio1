@@ -110,6 +110,9 @@ def main():
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
 
+        # Eliminar el carácter BOM si aparece al inicio del contenido.
+        content = content.lstrip('\ufeff')
+
         matches = ENGLISH_ENTRY_REGEX.finditer(content)
 
         entry_index = 1
