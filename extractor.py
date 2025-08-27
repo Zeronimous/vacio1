@@ -12,7 +12,7 @@ CSV_FILENAME = os.path.join(DIR_TEXTOS, "textos_a_traducir.csv")
 
 # Marcadores conocidos. El orden es importante para el regex.
 MARKERS = [
-    "<T>", "</T>", "<A>", "</A>", "{i}", "{/i>", "<R>", "</R>",
+    "<T>", "</T>", "<A>", "</A>", "<Z>", "</Z>", "{i}", "{/i>", "<R>", "</R>",
     "<B>", "</B>", r"<color=#[0-9a-fA-F]{6}>", "</color>", "<P>", "</P>",
     "<R2>", "</R2>", "<i>", "</i>", "<W>", "</W>", "<G>", "</G>", "<Y>", "</Y>"
 ]
@@ -22,7 +22,7 @@ GENERIC_MARKER_REGEX = r"{[^}]+}"
 MARKER_REGEX_PATTERN = "(" + "|".join(ESCAPED_MARKERS) + "|" + GENERIC_MARKER_REGEX + ")"
 MARKER_REGEX = re.compile(MARKER_REGEX_PATTERN)
 
-ENGLISH_ENTRY_REGEX = re.compile(r',?\"English\":\"((?:\\.|[^"\\])*)\",\"')
+ENGLISH_ENTRY_REGEX = re.compile(r',?\"English\":\"((?:\\"|[^"])*)\",?')
 
 # --- Lógica Principal ---
 
@@ -41,7 +41,7 @@ def unescape_string(s):
 def parse_content(content_string, base_id):
     """
     Analiza una cadena de contenido, la divide en texto y marcadores,
-    y genera las filas correspondientes para el CSV. (Versión 5 - Lógica final)
+    y genera las filas correspondientes para el CSV, contando los espacios.
     """
     if re.fullmatch(GENERIC_MARKER_REGEX, content_string):
         return []
@@ -58,18 +58,26 @@ def parse_content(content_string, base_id):
             prev_markers.append(tokens[i])
             i += 1
 
-        text = ""
+        text_chunk = ""
         if i < len(tokens):
-            text = tokens[i]
+            text_chunk = tokens[i]
             i += 1
 
-        if not prev_markers and not text:
+        if not prev_markers and not text_chunk:
             continue
+
+        # Contar espacios y limpiar el texto de forma más robusta
+        stripped_text = text_chunk.strip(' ')
+        leading_spaces = len(text_chunk) - len(text_chunk.lstrip(' '))
+        total_spaces = len(text_chunk) - len(stripped_text)
+        trailing_spaces = total_spaces - leading_spaces
 
         row = {
             "ID": f"{base_id}_{sub_index}",
             "prevmarker": "".join(prev_markers),
-            "texto": text,
+            "prevesp": leading_spaces,
+            "texto": stripped_text,
+            "postesp": trailing_spaces,
             "postmarker": ""
         }
         rows.append(row)
@@ -122,7 +130,7 @@ def main():
 
     try:
         with open(CSV_FILENAME, 'w', newline='', encoding='utf-8') as csvfile:
-            fieldnames = ['ID', 'prevmarker', 'texto', 'postmarker']
+            fieldnames = ['ID', 'prevmarker', 'prevesp', 'texto', 'postesp', 'postmarker']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(all_csv_rows)

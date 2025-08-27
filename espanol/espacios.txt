@@ -1,0 +1,1 @@
+{"line": 1, "English":"Esta puerta está_es <R>cerrada con llave desde el otro lado_es</R>. Debe ser un acceso especial para el mantenimiento de las tuberías._es"},

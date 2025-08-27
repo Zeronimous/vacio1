@@ -12,7 +12,7 @@ DIR_ESPANOL = "espanol"
 CSV_FILENAME = os.path.join(DIR_TEXTOS, "textos_a_traducir.csv")
 
 # Regex para encontrar las frases en inglés a extraer.
-ENGLISH_ENTRY_REGEX = re.compile(r',\"English\":\"((?:\\"|[^"])*)\",\"')
+ENGLISH_ENTRY_REGEX = re.compile(r',?\"English\":\"((?:\\"|[^"])*)\",?')
 
 # --- Lógica Principal ---
 
@@ -47,7 +47,12 @@ def load_translations():
     for filename, entries in translations.items():
         for entry_index, rows in entries.items():
             sorted_rows = sorted(rows, key=lambda r: int(r['ID'].rsplit('_', 1)[1]))
-            full_text = "".join(row['prevmarker'] + row['texto'] for row in sorted_rows)
+            full_text = ""
+            for row in sorted_rows:
+                # Usar .get() con un valor por defecto 0 por si las columnas no existen
+                prevesp = " " * int(row.get('prevesp', 0))
+                postesp = " " * int(row.get('postesp', 0))
+                full_text += row['prevmarker'] + prevesp + row['texto'] + postesp + row.get('postmarker', '')
             reconstructed_texts[filename][entry_index] = full_text
 
     return reconstructed_texts
